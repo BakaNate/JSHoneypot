@@ -1,3 +1,10 @@
+/**
+ ** Developed by BakaNate
+ ** on 10/02/2020
+ ** For project JSHoneypot
+ ** Copyright (c) 2020. All right reserved.
+ */
+
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -7,10 +14,12 @@ import cors from 'cors';
 
 import BakaLog from '../BakaDevKit/BakaLog';
 
+const PassStorage = require('../Models/PassStorageModel');
+
 const router = require('./router');
 
 const port = (process.env.NODE_ENV === 'PRODUCTION') ? 3000 : 3080;
-const mongooseUri = (process.env.BUILD_ENVIRONMENT === 'PRODUCTION') ? 'mongodb://localhost:27017/nodeInit' : 'mongodb://localhost:27017/nodeInit-dev';
+const mongooseUri = (process.env.BUILD_ENVIRONMENT === 'PRODUCTION') ? 'mongodb://localhost:27017/honeypot' : 'mongodb://localhost:27017/honeypot-dev';
 
 const Bk = new BakaLog('Bdk:BkRes');
 
@@ -47,6 +56,16 @@ function configApp(app) {
   app.use(router);
 }
 
+function initPassStorage() {
+  for (let i = 0; i !== 150; i += 1) {
+    PassStorage.createRecord('email@domain.com', `P4ssW0rdOf${i}`, `site/number${i}`, (err, record) => {
+      if (err) console.log(`[BOOT-DEV] Shit went wrong: ${err}`);
+      else console.log(`[BOOT-DEV] Created: ${record}`);
+    });
+  }
+}
+
+
 function initMongoConnect() {
   mongoose.Promise = global.Promise;
   mongoose.connect(mongooseUri, {
@@ -60,6 +79,7 @@ function initMongoConnect() {
 }
 
 initMongoConnect();
+initPassStorage();
 configApp(app);
 
 const server = app.listen(port, () => {

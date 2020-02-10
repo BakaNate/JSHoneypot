@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -r esm src/core/index.js",
-    "start": "npm -r esm src/core/index.js",
+    "start": "node -r esm src/core/index.js",
     "lint": "eslint ."
   },
   "pre-commit": [
@@ -26,6 +26,7 @@
     "bcrypt": "^3.0.8",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "cryptr": "^6.0.1",
     "ddos": "^0.2.1",
     "eslint": "^6.7.1",
     "eslint-config-airbnb-base": "^14.0.0",

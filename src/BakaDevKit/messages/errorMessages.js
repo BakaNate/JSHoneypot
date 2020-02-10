@@ -1,3 +1,10 @@
+/**
+ ** Developed by BakaNate
+ ** on 10/02/2020
+ ** For project JSHoneypot
+ ** Copyright (c) 2020. All right reserved.
+ */
+
 const BAD_REQUEST = 'Bad Request';
 const NOT_FOUND = 'Not Found';
 const INT_SERVER_ERROR = 'Internal Server Error';
