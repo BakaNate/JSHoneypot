@@ -14,6 +14,7 @@ import cors from 'cors';
 
 import BakaLog from '../BakaDevKit/BakaLog';
 
+const morgan = require('morgan');
 const PassStorage = require('../Models/PassStorageModel');
 
 const router = require('./router');
@@ -64,7 +65,16 @@ function initPassStorage() {
     });
   }
 }
+function initMorgan() {
+  morgan.token('body', (req) => JSON.stringify(req.body));
+  morgan.token('header', (req) => JSON.stringify(req.headers));
 
+  app.use(morgan('>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<\n'
+    + ':date[web] | :method from: :remote-addr to url: :url \n'
+    + 'Header: :header\n'
+    + 'Body: :body\n'
+    + '>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<'));
+}
 
 function initMongoConnect() {
   mongoose.Promise = global.Promise;
@@ -79,11 +89,12 @@ function initMongoConnect() {
 }
 
 initMongoConnect();
+initMorgan();
 initPassStorage();
 configApp(app);
 
 const server = app.listen(port, () => {
-  Bk.boot('Chatapp server', 'INF');
+  Bk.boot('Honeypot server', 'INF');
   Bk.boot('Written by BakaNate', 'INF');
   Bk.boot('For personal use', 'INF');
   Bk.boot('Before running the app, consider \'npm audit\' && \'snyk test\' to check for any vulnerabilities', 'INF');

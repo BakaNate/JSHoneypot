@@ -25,6 +25,7 @@ const passStorageSchema = new mongoose.Schema({
     type: String,
     required: true,
     maxlength: 254,
+    unique: true,
   },
 });
 
