@@ -9,6 +9,7 @@ import express from 'express';
 import Ddos from 'ddos';
 
 const PassStorageController = require('../Controllers/PassStorageController');
+const UserAdminController = require('../Controllers/UserAdminController');
 
 const router = express.Router();
 if (process.env.NODE_ENV === 'PRODUCTION') {
@@ -23,5 +24,8 @@ router.route('/pass')
 
 router.route('/pass/site')
   .get(PassStorageController.decryptPass);
+
+router.route('/login')
+  .post(UserAdminController.logUser);
 
 module.exports = router;

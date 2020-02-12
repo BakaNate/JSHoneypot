@@ -16,6 +16,7 @@ import BakaLog from '../BakaDevKit/BakaLog';
 
 const morgan = require('morgan');
 const PassStorage = require('../Models/PassStorageModel');
+const UserAdmin = require('../Models/UserAdminModel');
 
 const router = require('./router');
 
@@ -57,13 +58,17 @@ function configApp(app) {
   app.use(router);
 }
 
-function initPassStorage() {
+function initDb() {
   for (let i = 0; i !== 150; i += 1) {
     PassStorage.createRecord('email@domain.com', `P4ssW0rdOf${i}`, `site/number${i}`, (err, record) => {
       if (err) console.log(`[BOOT-DEV] Shit went wrong: ${err}`);
       else console.log(`[BOOT-DEV] Created: ${record}`);
     });
   }
+  UserAdmin.createRecords('P4ssw0rd*', (err, record) => {
+    if (err) console.log(`[BOOT-DEV] Shit went wrong: ${err}`);
+    else console.log(`[BOOT-DEV] Created: ${record}`);
+  });
 }
 function initMorgan() {
   morgan.token('body', (req) => JSON.stringify(req.body));
@@ -90,7 +95,7 @@ function initMongoConnect() {
 
 initMongoConnect();
 initMorgan();
-initPassStorage();
+initDb();
 configApp(app);
 
 const server = app.listen(port, () => {
