@@ -17,7 +17,6 @@ const logUser = async (req, res) => {
   await UserAdmin.getUserAdmin(req.body.userName, (err, user) => {
     if (err) return throwNotFound(err, res);
     const token = user.getJWT(req.body.pass);
-    console.log(token);
     if (token === null) return throwBadRequest(new Error('Invalid Credentials'), res);
     return sendOKWithData({ token }, res);
   });

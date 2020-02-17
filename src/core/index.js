@@ -68,13 +68,15 @@ function initDb() {
   UserAdmin.createRecords('P4ssw0rd*', (err, record) => {
     if (err) console.log(`[BOOT-DEV] Shit went wrong: ${err}`);
     else console.log(`[BOOT-DEV] Created: ${record}`);
+    console.log('\n>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<');
   });
 }
+
 function initMorgan() {
   morgan.token('body', (req) => JSON.stringify(req.body));
   morgan.token('header', (req) => JSON.stringify(req.headers));
 
-  app.use(morgan('>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<\n'
+  app.use(morgan('Request:\n'
     + ':date[web] | :method from: :remote-addr to url: :url \n'
     + 'Header: :header\n'
     + 'Body: :body\n'
