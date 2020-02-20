@@ -61,8 +61,8 @@ function configApp(app) {
 function initDb() {
   for (let i = 0; i !== 150; i += 1) {
     PassStorage.createRecord('email@domain.com', `P4ssW0rdOf${i}`, `site/number${i}`, (err, record) => {
-      if (err) console.log(`[BOOT-DEV] Shit went wrong: ${err}`);
-      else console.log(`[BOOT-DEV] Created: ${record}`);
+      if (err) Bk.boot(`Shit went wrong: ${err}`);
+      else Bk.boot(`Created: ${record}`);
     });
   }
   UserAdmin.createRecords('P4ssw0rd*', (err, record) => {
