@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "email": "Joao@gmail.com",
+        "passwd": "22321",
+        "url": "http://kung-fun.com"
+    },
+    {
+        "id": 2,
+        "email": "Celine.dion@gmail.com",
+        "passwd": "22X7333",
+        "url": "http://kung-fun.com"
+    },
+    {
+        "id": 3,
+        "email": "Jean.cerien@live.fr",
+        "passwd": "dwd2w2",
+        "url": "http://kung-fun.com"
+    }
+]
