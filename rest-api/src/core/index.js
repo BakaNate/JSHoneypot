@@ -21,7 +21,7 @@ const UserAdmin = require('../Models/UserAdminModel');
 const router = require('./router');
 
 const port = (process.env.NODE_ENV === 'PRODUCTION') ? 80 : 8080;
-const mongooseUri = (process.env.BUILD_ENVIRONMENT === 'PRODUCTION') ? 'mongodb://localhost:27017/honeypot' : 'mongodb://localhost:27017/honeypot-dev';
+const mongooseUri = (process.env.BUILD_ENVIRONMENT === 'PRODUCTION') ? 'mongodb://mongo_hp:27017/hp' : 'mongodb://mongo_hp:27017/hp';
 
 const Bk = new BakaLog('Bdk:BkRes');
 
@@ -85,6 +85,7 @@ function initMorgan() {
 
 function initMongoConnect() {
   mongoose.Promise = global.Promise;
+  console.log(mongooseUri);
   mongoose.connect(mongooseUri, {
     useCreateIndex: true,
     useNewUrlParser: true,

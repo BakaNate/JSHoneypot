@@ -1,20 +1,36 @@
 version: '3'
 services:
-  reverseproxy:
-    build: ./reverse-proxy/.
+  mongo_hp:
+    image: mongo
+    container_name: mongo_hp
+    restart: always
+    ports:
+      - 27017:27017
+
+  reverseproxy_hp:
+    container_name: reverseproxy_hp
+    depends_on:
+      - mongo_hp
+    build: reverse-proxy
     ports:
       - 8080:8080
       - 3000:3000
     restart: always
 
-  apirest:
-    build: ./rest-api/.
+  apirest_hp:
+    container_name: apirest_hp
+    build: rest-api
+    links:
+      - mongo_hp
     depends_on:
-      - reverseproxy
+      - reverseproxy_hp
+      - mongo_hp
     restart: always
 
-  apigraphql:
-    build: ./graphql-api/.
+  apigraphql_hp:
+    container_name: apigraphql_hp
+    build: graphql-api
     depends_on:
-      - reverseproxy
+      - reverseproxy_hp
+      - apirest_hp
     restart: always
