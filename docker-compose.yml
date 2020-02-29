@@ -13,24 +13,11 @@ services:
     networks:
       - samplenetwork
 
-  test_hp:
-    build: test_delete
-    container_name: test_hp
-    restart: always
-    ports:
-      - 3044:3044
-    links:
-      - mongo_hp
-    depends_on:
-      - mongo_hp
-    networks:
-      - samplenetwork
-
   reverseproxy_hp:
     container_name: reverseproxy_hp
     build: reverse-proxy
     ports:
-      - 8080:8080
+      - 80:80
       - 3000:3000
     restart: always
     networks:
@@ -42,6 +29,8 @@ services:
   apirest_hp:
     container_name: apirest_hp
     build: rest-api
+    environment:
+      - process.env.NODE_ENV=PRODUCTION
     links:
       - mongo_hp
     depends_on:

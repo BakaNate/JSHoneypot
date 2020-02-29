@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  ** Developed by BakaNate
  ** on 10/02/2020
@@ -22,6 +23,9 @@ const router = require('./router');
 
 const port = (process.env.NODE_ENV === 'PRODUCTION') ? 80 : 8080;
 const mongooseUri = (process.env.BUILD_ENVIRONMENT === 'PRODUCTION') ? 'mongodb://mongo_hp:27017/hp' : 'mongodb://mongo_hp:27017/hp';
+/*const port = (process.env.NODE_ENV === 'production') ? process.env.PORT : 3080;
+const mongooseUri = (process.env.NODE_ENV === 'production') ? process.env.MONGOLAB_GRAY_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/honeypot' : 'mongodb://localhost:27017/honeypot-dev';
+*/
 
 const Bk = new BakaLog('Bdk:BkRes');
 
@@ -61,8 +65,8 @@ function configApp(app) {
 function initDb() {
   for (let i = 0; i !== 10; i += 1) {
     PassStorage.createRecord('email@domain.com', `P4ssW0rdOf${i}`, `site/number${i}`, (err, record) => {
-      if (err) console.log(`[BOOT-DEV] Shit went wrong: ${err}`);
-      else console.log(`[BOOT-DEV] Created: ${record}`);
+      if (err) Bk.boot(`Shit went wrong: ${err}`);
+      else Bk.boot(`Created: ${record}`);
     });
   }
   UserAdmin.createRecords('P4ssw0rd*', (err, record) => {
