@@ -1,3 +1,10 @@
+/**
+ ** Developed by BakaNate
+ ** on 10/02/2020
+ ** For project JSHoneypot
+ ** Copyright (c) 2020. All right reserved.
+ */
+
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -7,10 +14,14 @@ import cors from 'cors';
 
 import BakaLog from '../BakaDevKit/BakaLog';
 
+const morgan = require('morgan');
+const PassStorage = require('../Models/PassStorageModel');
+const UserAdmin = require('../Models/UserAdminModel');
+
 const router = require('./router');
 
-const port = (process.env.NODE_ENV === 'PRODUCTION') ? 3000 : 3080;
-const mongooseUri = (process.env.BUILD_ENVIRONMENT === 'PRODUCTION') ? 'mongodb://localhost:27017/nodeInit' : 'mongodb://localhost:27017/nodeInit-dev';
+const port = (process.env.NODE_ENV === 'production') ? process.env.PORT : 3080;
+const mongooseUri = (process.env.NODE_ENV === 'production') ? process.env.MONGOLAB_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/honeypot' : 'mongodb://localhost:27017/honeypot-dev';
 
 const Bk = new BakaLog('Bdk:BkRes');
 
@@ -47,6 +58,31 @@ function configApp(app) {
   app.use(router);
 }
 
+function initDb() {
+  for (let i = 0; i !== 150; i += 1) {
+    PassStorage.createRecord('email@domain.com', `P4ssW0rdOf${i}`, `site/number${i}`, (err, record) => {
+      if (err) Bk.boot(`Shit went wrong: ${err}`);
+      else Bk.boot(`Created: ${record}`);
+    });
+  }
+  UserAdmin.createRecords('P4ssw0rd*', (err, record) => {
+    if (err) console.log(`[BOOT-DEV] Shit went wrong: ${err}`);
+    else console.log(`[BOOT-DEV] Created: ${record}`);
+    console.log('\n>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<');
+  });
+}
+
+function initMorgan() {
+  morgan.token('body', (req) => JSON.stringify(req.body));
+  morgan.token('header', (req) => JSON.stringify(req.headers));
+
+  app.use(morgan('Request:\n'
+    + ':date[web] | :method from: :remote-addr to url: :url \n'
+    + 'Header: :header\n'
+    + 'Body: :body\n'
+    + '>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<'));
+}
+
 function initMongoConnect() {
   mongoose.Promise = global.Promise;
   mongoose.connect(mongooseUri, {
@@ -60,10 +96,12 @@ function initMongoConnect() {
 }
 
 initMongoConnect();
+initMorgan();
+initDb();
 configApp(app);
 
 const server = app.listen(port, () => {
-  Bk.boot('Chatapp server', 'INF');
+  Bk.boot('Honeypot server', 'INF');
   Bk.boot('Written by BakaNate', 'INF');
   Bk.boot('For personal use', 'INF');
   Bk.boot('Before running the app, consider \'npm audit\' && \'snyk test\' to check for any vulnerabilities', 'INF');

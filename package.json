@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -r esm src/core/index.js",
-    "start": "npm -r esm src/core/index.js",
+    "start": "node -r esm src/core/index.js",
     "lint": "eslint ."
   },
   "pre-commit": [
@@ -26,6 +26,7 @@
     "bcrypt": "^3.0.8",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "cryptr": "^6.0.1",
     "ddos": "^0.2.1",
     "eslint": "^6.7.1",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -33,7 +34,9 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.12",
+    "morgan": "^1.9.1",
     "nodemailer": "^6.3.1",
     "nodemon": "^2.0.1",
     "passport": "^0.4.0"
