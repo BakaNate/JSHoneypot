@@ -21,7 +21,7 @@ const UserAdmin = require('../Models/UserAdminModel');
 const router = require('./router');
 
 const port = (process.env.NODE_ENV === 'production') ? process.env.PORT : 3080;
-const mongooseUri = (process.env.NODE_ENV === 'production') ? process.env.MONGOLAB_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/honeypot' : 'mongodb://localhost:27017/honeypot-dev';
+const mongooseUri = (process.env.NODE_ENV === 'production') ? process.env.MONGOLAB_GRAY_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/honeypot' : 'mongodb://localhost:27017/honeypot-dev';
 
 const Bk = new BakaLog('Bdk:BkRes');
 
