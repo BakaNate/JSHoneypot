@@ -30,7 +30,7 @@ services:
     container_name: apirest_hp
     build: rest-api
     environment:
-      - process.env.NODE_ENV=PRODUCTION
+      - NODE_ENV=PRODUCTION
     links:
       - mongo_hp
     depends_on:
