@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  ** Developed by BakaNate
  ** on 10/02/2020
@@ -15,8 +16,8 @@ import cors from 'cors';
 import BakaLog from '../BakaDevKit/BakaLog';
 
 const morgan = require('morgan');
-const PassStorage = require('../Models/PassStorageModel');
-const UserAdmin = require('../Models/UserAdminModel');
+/* const PassStorage = require('../Models/PassStorageModel');
+const UserAdmin = require('../Models/UserAdminModel'); */
 
 const router = require('./router');
 
@@ -58,7 +59,7 @@ function configApp(app) {
   app.use(router);
 }
 
-function initDb() {
+/* function initDb() {
   for (let i = 0; i !== 150; i += 1) {
     PassStorage.createRecord('email@domain.com', `P4ssW0rdOf${i}`, `site/number${i}`, (err, record) => {
       if (err) Bk.boot(`Shit went wrong: ${err}`);
@@ -70,7 +71,7 @@ function initDb() {
     else console.log(`[BOOT-DEV] Created: ${record}`);
     console.log('\n>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<');
   });
-}
+} */
 
 function initMorgan() {
   morgan.token('body', (req) => JSON.stringify(req.body));
@@ -97,7 +98,7 @@ function initMongoConnect() {
 
 initMongoConnect();
 initMorgan();
-initDb();
+// initDb();
 configApp(app);
 
 const server = app.listen(port, () => {
