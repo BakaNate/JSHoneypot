@@ -1,0 +1,6 @@
+{ 
+    "_id" : ObjectId("5e452caef715a638d8732e6b"), 
+    "userName" : "UserAdmin", 
+    "pass" : "$2b$10$SYy9PLk2IkfRN3GhbNJb/O5SqqAtqX0uLO7p7YzRS5Syj1KL08H.y", 
+    "__v" : NumberInt(0)
+}
