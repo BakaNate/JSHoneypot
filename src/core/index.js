@@ -16,8 +16,8 @@ import cors from 'cors';
 import BakaLog from '../BakaDevKit/BakaLog';
 
 const morgan = require('morgan');
-/* const PassStorage = require('../Models/PassStorageModel');
-const UserAdmin = require('../Models/UserAdminModel'); */
+const PassStorage = require('../Models/PassStorageModel');
+const UserAdmin = require('../Models/UserAdminModel');
 
 const router = require('./router');
 
@@ -59,8 +59,8 @@ function configApp(app) {
   app.use(router);
 }
 
-/* function initDb() {
-  for (let i = 0; i !== 150; i += 1) {
+function initDb() {
+  for (let i = 0; i !== 10; i += 1) {
     PassStorage.createRecord('email@domain.com', `P4ssW0rdOf${i}`, `site/number${i}`, (err, record) => {
       if (err) Bk.boot(`Shit went wrong: ${err}`);
       else Bk.boot(`Created: ${record}`);
@@ -71,7 +71,7 @@ function configApp(app) {
     else console.log(`[BOOT-DEV] Created: ${record}`);
     console.log('\n>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<');
   });
-} */
+}
 
 function initMorgan() {
   morgan.token('body', (req) => JSON.stringify(req.body));
@@ -98,7 +98,7 @@ function initMongoConnect() {
 
 initMongoConnect();
 initMorgan();
-// initDb();
+initDb();
 configApp(app);
 
 const server = app.listen(port, () => {
