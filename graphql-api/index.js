@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 app.use(function (req, res, next) {
   console.log('Time: %d', Date.now())
-  console.log(req);
+  //console.log(req);
   var log_attack = "Attacker IP: " + req.headers['x-real-ip'] + "\n"
   log_attack += "Origin: " + req.headers['origin'] + "\n"
   log_attack += "User-Agen: " + req.headers['user-agent'] + "\n"
