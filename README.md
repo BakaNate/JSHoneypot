@@ -1,6 +1,6 @@
 # JSHoneypot
 
-This is a school project. Please do not use for Production !
+**This is a school project. Please do not use for Production !**
 
 # How it works ?
 
@@ -15,6 +15,10 @@ This will deploy a nodeJS REST API, a nodeJS graphQL API, both behind a nginx re
 # About
 
 **THIS PROJECT USES BAD PRACTICES DO NOT USE FOR PRODUCTION !**
+
+This project is a fake password manager used for a honeypot.<br>
+It have been concieved like a CTF the goal is to get the user passwords.<br>
+This project have voluntary security vulnerabilities.<br>
 
 # Authors
 
