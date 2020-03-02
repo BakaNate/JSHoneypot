@@ -4,10 +4,13 @@
 
 # How it works ?
 
-Install dependencies:<br>
-`npm install`<br>
-Run project<br>
-`npm run start`
+This will deploy a nodeJS REST API, a nodeJS graphQL API, both behind a nginx reverse proxy to achieve a complete logging !
+
+### Install dependencies:<br>
+ [x] docker <br>
+ [x] docker-compose <br>
+### Run project<br>
+`docker-compose run -d`
 
 # About
 
